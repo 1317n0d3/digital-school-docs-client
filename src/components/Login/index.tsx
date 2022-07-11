@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import logo from './../../logo.svg';
+import Header from '../Header';
+import LoginForm from '../LoginForm';
 
 interface ILogin {
 
@@ -7,19 +8,10 @@ interface ILogin {
 
 const Login: FC<ILogin> = ({ ...props }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header title={'Авторизация'} showLogOutButton={false} />
+      <LoginForm />
+    </>
   );
 }
 
