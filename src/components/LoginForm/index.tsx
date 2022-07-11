@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import './LoginForm.scss';
 
@@ -20,6 +21,7 @@ const validationSchema = yup.object({
 const textFieldStyle = { marginBottom: '20px' };
 
 const LoginForm: FC<ILoginForm> = ({ ...props }) => {
+  const [isValid, setIsValid] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       login: '',
@@ -28,6 +30,7 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      setIsValid(true)
     },
   });
 
@@ -60,6 +63,10 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
         <Button color="primary" variant="contained" fullWidth type="submit">
           Продолжить
         </Button>
+
+        {isValid && (
+          <Navigate to={'/adult-contracts'} replace={true} />
+        )}
       </form>
     </div>
   );

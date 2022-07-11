@@ -6,10 +6,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 interface IHeader {
   title: string,
-  showLogOutButton: boolean
+  showLogOutButton?: boolean
 }
 
-const Header: FC<IHeader> = ({ title, showLogOutButton, ...props }) => {
+const Header: FC<IHeader> = ({ title, showLogOutButton = true, ...props }) => {
   return (
     <header className="header">
       <nav className='header-nav'>
