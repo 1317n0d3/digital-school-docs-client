@@ -10,6 +10,12 @@ const columns: GridColDef[] = [
     disableColumnMenu: true
   },
   {
+    field: 'parentFullName',
+    headerName: 'ФИО представителя',
+    width: 170,
+    disableColumnMenu: true
+  },
+  {
     field: 'courseTitle',
     headerName: 'Название курса',
     width: 170,
@@ -51,6 +57,13 @@ const columns: GridColDef[] = [
   {
     field: 'passport',
     headerName: 'Паспортные данные',
+    width: 170,
+    disableColumnMenu: true,
+    sortable: false,
+  },
+  {
+    field: 'parentPassport',
+    headerName: 'Паспортные данные представителя',
     width: 170,
     disableColumnMenu: true,
     sortable: false,
@@ -102,9 +115,9 @@ const rows = [
   { id: 9, fullName: 'Roxie Harvey', age: 65 },
 ];
 
-interface IAdultContractsTable { }
+interface IStudentContractsTable { }
 
-const AdultContractsTable: FC<IAdultContractsTable> = ({ ...props }) => {
+const StudentContractsTable: FC<IStudentContractsTable> = ({ ...props }) => {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <DataGrid
@@ -117,4 +130,4 @@ const AdultContractsTable: FC<IAdultContractsTable> = ({ ...props }) => {
   );
 }
 
-export default AdultContractsTable;
+export default StudentContractsTable;
