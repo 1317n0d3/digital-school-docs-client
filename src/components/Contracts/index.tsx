@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import Header from '../Header';
 import TablesTabs from '../TablesTabs';
 
-interface IAdultContracts { }
+interface IContracts { }
 
-const AdultContracts: FC<IAdultContracts> = ({ ...props }) => {
+const Contracts: FC<IContracts> = ({ ...props }) => {
   return (
     <>
       <Header title='Список клиентов-договоров взрослый' />
@@ -13,4 +13,4 @@ const AdultContracts: FC<IAdultContracts> = ({ ...props }) => {
   );
 }
 
-export default AdultContracts;
+export default Contracts;

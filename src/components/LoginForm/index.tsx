@@ -29,7 +29,7 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       setIsValid(true)
     },
   });
@@ -65,7 +65,7 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
         </Button>
 
         {isValid && (
-          <Navigate to={'/adult-contracts'} replace={true} />
+          <Navigate to={'/contracts'} replace={true} />
         )}
       </form>
     </div>
