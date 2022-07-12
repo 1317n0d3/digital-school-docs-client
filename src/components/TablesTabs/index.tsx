@@ -1,7 +1,6 @@
 import { Tab, Tabs } from '@mui/material';
 import React, { FC, SyntheticEvent, useState } from 'react';
-import AdultContractsTable from '../AdultContractsTable';
-import StudentContractsTable from '../StudentContractsTable';
+import ContractsTable from '../ContractsTable';
 
 interface ITablesTabs { }
 
@@ -11,17 +10,6 @@ const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  const switchTab = (value: number) => {
-    switch (value) {
-      case 0:
-        return <AdultContractsTable />
-      case 1:
-        return <StudentContractsTable />
-      default:
-        return <AdultContractsTable />
-    }
-  }
 
   return (
     <>
@@ -35,7 +23,7 @@ const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
         <Tab label="Студент" />
         <Tab label="Детский" />
       </Tabs>
-      {switchTab(value)}
+      <ContractsTable contractType={value} />
     </>
   );
 }

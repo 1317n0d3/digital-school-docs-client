@@ -11,7 +11,7 @@ const Router: FC<IRouter> = ({ ...props }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={<Navigate to={'/login'} />} />
+        <Route path={'/'} element={<Navigate to={'/contracts'} />} />
         <Route path={'/login'} element={<Login />} />
         <Route path={'/contracts'} element={<Contracts />} />
       </Routes>
