@@ -3,6 +3,7 @@ import './Header.scss';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useNavigate } from 'react-router-dom';
 
 interface IHeader {
   title: string,
@@ -10,6 +11,11 @@ interface IHeader {
 }
 
 const Header: FC<IHeader> = ({ title, showLogOutButton = true, ...props }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/login')
+  }
+
   return (
     <header className="header">
       <nav className='header-nav'>
@@ -21,7 +27,7 @@ const Header: FC<IHeader> = ({ title, showLogOutButton = true, ...props }) => {
         {
           showLogOutButton
             ?
-            <IconButton color='primary' aria-label="logout">
+            <IconButton color='primary' aria-label="logout" onClick={handleClick}>
               <LogoutIcon />
             </IconButton>
             :

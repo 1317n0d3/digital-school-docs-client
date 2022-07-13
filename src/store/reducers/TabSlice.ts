@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface TabState {
   id: number;
@@ -12,7 +12,9 @@ export const tabSlice = createSlice({
   name: 'tab',
   initialState,
   reducers: {
-
+    setTableType(state, action: PayloadAction<number>) {
+      state.id = action.payload;
+    }
   }
 })
 

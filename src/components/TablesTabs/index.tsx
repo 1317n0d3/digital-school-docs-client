@@ -1,29 +1,32 @@
 import { Tab, Tabs } from '@mui/material';
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { FC, SyntheticEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { tabSlice } from '../../store/reducers/TabSlice';
 import ContractsTable from '../ContractsTable';
 
 interface ITablesTabs { }
 
 const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
-  const [value, setValue] = useState(0);
+  const { id } = useAppSelector(state => state.tabReducer)
+  const { setTableType } = tabSlice.actions;
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    dispatch(setTableType(newValue))
   };
 
   return (
     <>
       <Tabs
-        value={value}
+        value={id}
         onChange={handleChange}
         aria-label="table type tabs"
-      // sx={{ marginRight: 0, backgroundColor: 'black', width: '400px' }}
       >
         <Tab label="Взрослый" />
         <Tab label="Студент" />
         <Tab label="Детский" />
       </Tabs>
-      <ContractsTable contractType={value} />
+      <ContractsTable contractType={id} />
     </>
   );
 }
