@@ -4,6 +4,7 @@ import { useAppSelector } from '../../hooks/redux';
 import ContractsTable from './ContractsTable';
 import Header from '../Header';
 import TablesTabs from '../TablesTabs';
+import ContractFilters from './ContractFilters';
 
 interface IContracts { }
 
@@ -27,6 +28,7 @@ const Contracts: FC<IContracts> = ({ ...props }) => {
     <>
       <Header title={switchTitle(type)} />
       <TablesTabs />
+      <ContractFilters />
       <ContractsTable contractType={type} />
     </>
   );
