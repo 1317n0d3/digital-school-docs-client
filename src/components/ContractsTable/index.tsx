@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import contractTypes from '../../constants/contractTypes';
 
 const adultColumns: GridColDef[] = [
   {
@@ -259,7 +260,7 @@ const rows = [
 ];
 
 interface IContractsTable {
-  contractType: number,
+  contractType: string,
 }
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
@@ -270,15 +271,15 @@ const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
   })
 
 
-  const switchColumns = (value: number) => {
+  const switchColumns = (value: string) => {
     switch (value) {
-      case 0:
+      case contractTypes.ADULT:
         setColumns(adultColumns);
         break;
-      case 1:
+      case contractTypes.STUDENT:
         setColumns(studentColumns);
         break;
-      case 2:
+      case contractTypes.CHILDREN:
         setColumns(childColumns);
         break;
       default:

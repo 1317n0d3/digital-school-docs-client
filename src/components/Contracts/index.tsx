@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import contractTypes from '../../constants/contractTypes';
 import { useAppSelector } from '../../hooks/redux';
 import Header from '../Header';
 import TablesTabs from '../TablesTabs';
@@ -6,15 +7,15 @@ import TablesTabs from '../TablesTabs';
 interface IContracts { }
 
 const Contracts: FC<IContracts> = ({ ...props }) => {
-  const { id } = useAppSelector(state => state.tabReducer)
+  const { type } = useAppSelector(state => state.tabReducer)
 
-  const switchTitle = (id: number): string => {
-    switch (id) {
-      case 0:
+  const switchTitle = (type: string): string => {
+    switch (type) {
+      case contractTypes.ADULT:
         return 'Список клиентов-договоров взрослый'
-      case 1:
+      case contractTypes.STUDENT:
         return 'Список клиентов-договоров студент'
-      case 2:
+      case contractTypes.CHILDREN:
         return 'Список клиентов-договоров детский'
       default:
         return 'Список клиентов-договоров взрослый'
@@ -23,7 +24,7 @@ const Contracts: FC<IContracts> = ({ ...props }) => {
 
   return (
     <>
-      <Header title={switchTitle(id)} />
+      <Header title={switchTitle(type)} />
       <TablesTabs />
     </>
   );
