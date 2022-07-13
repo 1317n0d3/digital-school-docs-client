@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import contractTypes from '../../constants/contractTypes';
@@ -264,26 +264,17 @@ interface IContractsTable {
 }
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
-  const [columns, setColumns] = useState(adultColumns);
-
-  useEffect(() => {
-    switchColumns(contractType)
-  })
-
 
   const switchColumns = (value: string) => {
     switch (value) {
       case contractTypes.ADULT:
-        setColumns(adultColumns);
-        break;
+        return adultColumns;
       case contractTypes.STUDENT:
-        setColumns(studentColumns);
-        break;
+        return studentColumns;
       case contractTypes.CHILDREN:
-        setColumns(childColumns);
-        break;
+        return childColumns;
       default:
-        return;
+        return adultColumns;
     }
   }
 
@@ -291,7 +282,7 @@ const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
     <div style={{ width: '100%', height: '70vh' }}>
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={switchColumns(contractType)}
         pageSize={10}
         rowsPerPageOptions={[10]}
       />

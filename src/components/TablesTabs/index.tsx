@@ -3,12 +3,11 @@ import React, { FC, SyntheticEvent } from 'react';
 import contractTypes from '../../constants/contractTypes';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { tabSlice } from '../../store/reducers/TabSlice';
-import ContractsTable from '../ContractsTable';
 
 interface ITablesTabs { }
 
 const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
-  const { id, type } = useAppSelector(state => state.tabReducer)
+  const { id } = useAppSelector(state => state.tabReducer)
   const { setTableType } = tabSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -34,18 +33,15 @@ const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
   };
 
   return (
-    <>
-      <Tabs
-        value={id}
-        onChange={handleChange}
-        aria-label="table type tabs"
-      >
-        <Tab label="Взрослый" />
-        <Tab label="Студент" />
-        <Tab label="Детский" />
-      </Tabs>
-      <ContractsTable contractType={type} />
-    </>
+    <Tabs
+      value={id}
+      onChange={handleChange}
+      aria-label="table type tabs"
+    >
+      <Tab label="Взрослый" />
+      <Tab label="Студент" />
+      <Tab label="Детский" />
+    </Tabs>
   );
 }
 

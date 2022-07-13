@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import contractTypes from '../../constants/contractTypes';
 import { useAppSelector } from '../../hooks/redux';
+import ContractsTable from '../ContractsTable';
 import Header from '../Header';
 import TablesTabs from '../TablesTabs';
 
@@ -26,6 +27,7 @@ const Contracts: FC<IContracts> = ({ ...props }) => {
     <>
       <Header title={switchTitle(type)} />
       <TablesTabs />
+      <ContractsTable contractType={type} />
     </>
   );
 }
