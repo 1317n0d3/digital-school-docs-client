@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import contractTypes from '../../constants/contractTypes';
+import contractTypes from '../../../constants/contractTypes';
 
 const adultColumns: GridColDef[] = [
   {

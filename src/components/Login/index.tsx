@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Header from '../Header';
-import LoginForm from '../LoginForm';
+import LoginForm from './LoginForm';
 
 interface ILogin {
 
