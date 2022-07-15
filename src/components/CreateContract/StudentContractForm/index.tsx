@@ -1,11 +1,11 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import '../ContractForm.scss';
 
-interface IAdultContractForm { }
+interface IStudentContractForm { }
 
 const validationSchema = yup.object({
   surname: yup
@@ -60,9 +60,8 @@ const validationSchema = yup.object({
 
 const textFieldStyle = { margin: '10px', width: '400px' };
 
-const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
-  // const [isValid, setIsValid] = useState<boolean>(false);
-  const navigate = useNavigate();
+const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
+  const [isValid, setIsValid] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       surname: '',
@@ -85,13 +84,9 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      // setIsValid(true)
+      setIsValid(true)
     },
   });
-
-  const handleClick = () => {
-    navigate('/contracts')
-  }
 
   return (
     <div className='contract-form-container'>
@@ -283,20 +278,16 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" type="submit">
+        <Button color="primary" variant="contained" fullWidth type="submit">
           Добавить
         </Button>
 
-        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
-          Назад
-        </Button>
-
-        {/* {isValid && (
+        {isValid && (
           <Navigate to={'/contracts'} replace={true} />
-        )} */}
+        )}
       </form>
     </div>
   );
 }
 
-export default AdultContractForm;
+export default StudentContractForm;

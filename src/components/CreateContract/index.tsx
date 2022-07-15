@@ -4,6 +4,8 @@ import { useAppSelector } from '../../hooks/redux';
 import Header from '../Header';
 import TablesTabs from '../TablesTabs';
 import AdultContractForm from './AdultContractForm';
+import ChildrenContractForm from './ChildrenContractForm';
+import StudentContractForm from './StudentContractForm';
 
 interface ICreateAdultContract { }
 
@@ -28,9 +30,9 @@ const CreateContract: FC<ICreateAdultContract> = ({ ...props }) => {
       case contractTypes.ADULT:
         return <AdultContractForm />
       case contractTypes.STUDENT:
-        return <AdultContractForm />
+        return <StudentContractForm />
       case contractTypes.CHILDREN:
-        return <AdultContractForm />
+        return <ChildrenContractForm />
       default:
         return <AdultContractForm />
     }
