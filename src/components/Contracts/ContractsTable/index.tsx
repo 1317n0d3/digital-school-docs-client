@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import contractTypes from '../../../constants/contractTypes';
 import { appAPI } from '../../../services/AppService';
+import { useNavigate } from 'react-router-dom';
 
 const adultColumns: GridColDef[] = [
   {
@@ -242,22 +243,6 @@ const rows = [
   { id: 7, fullName: 'Clifford Ferrara', age: 44 },
   { id: 8, fullName: 'Frances Rossini', age: 36 },
   { id: 9, fullName: 'Roxie Harvey', age: 65 },
-  { id: 2, fullName: 'Lannister Cersei', age: 42 },
-  { id: 3, fullName: 'Lannister Jaime', age: 45 },
-  { id: 4, fullName: 'Stark Arya', age: 16 },
-  { id: 5, fullName: 'Targaryen Daenerys', age: null },
-  { id: 6, fullName: 'Melisandre', age: 150 },
-  { id: 7, fullName: 'Clifford Ferrara', age: 44 },
-  { id: 8, fullName: 'Frances Rossini', age: 36 },
-  { id: 9, fullName: 'Roxie Harvey', age: 65 },
-  { id: 2, fullName: 'Lannister Cersei', age: 42 },
-  { id: 3, fullName: 'Lannister Jaime', age: 45 },
-  { id: 4, fullName: 'Stark Arya', age: 16 },
-  { id: 5, fullName: 'Targaryen Daenerys', age: null },
-  { id: 6, fullName: 'Melisandre', age: 150 },
-  { id: 7, fullName: 'Clifford Ferrara', age: 44 },
-  { id: 8, fullName: 'Frances Rossini', age: 36 },
-  { id: 9, fullName: 'Roxie Harvey', age: 65 },
 ];
 
 interface IContractsTable {
@@ -266,6 +251,7 @@ interface IContractsTable {
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
   const { data } = appAPI.useGetDocumentsQuery('');
+  const navigate = useNavigate();
 
   console.log(data);
 
@@ -283,6 +269,12 @@ const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
     }
   }
 
+  const handleClick = (event: any) => {
+    navigate('/create-contract')
+    console.log(event.id);
+
+  }
+
   return (
     <div style={{ width: '100%', height: '70vh' }}>
       <DataGrid
@@ -290,6 +282,7 @@ const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
         columns={switchColumns(contractType)}
         pageSize={10}
         rowsPerPageOptions={[10]}
+        onRowClick={handleClick}
       />
     </div>
   );

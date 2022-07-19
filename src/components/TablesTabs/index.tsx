@@ -36,7 +36,7 @@ const TablesTabs: FC<ITablesTabs> = ({ ...props }) => {
     <Tabs
       value={id}
       onChange={handleChange}
-      aria-label="table type tabs"
+      aria-label="table tabs"
     >
       <Tab label="Взрослый" />
       <Tab label="Студент" />

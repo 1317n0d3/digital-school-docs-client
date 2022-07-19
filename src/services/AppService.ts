@@ -18,6 +18,35 @@ export const appAPI = createApi({
             query: () => ({
                 url: '/documents',
             })
-        })
+        }),
+        createDocument: build.mutation({
+            query: (document) => ({
+                url: '/documents/create',
+                method: 'POST',
+                body: document,
+            })
+        }),
+        downloadDocument: build.query({
+            query: (filename: string) => ({
+                url: '/documents/download/' + filename,
+            })
+        }),
+        getClients: build.query({
+            query: () => ({
+                url: '/clients',
+            })
+        }),
+        createCourse: build.mutation({
+            query: (course) => ({
+                url: '/courses/create',
+                method: 'POST',
+                body: course,
+            })
+        }),
+        getCourses: build.query({
+            query: () => ({
+                url: '/courses',
+            })
+        }),
     })
 })
