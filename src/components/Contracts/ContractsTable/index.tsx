@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import contractTypes from '../../../constants/contractTypes';
+import { appAPI } from '../../../services/AppService';
 
 const adultColumns: GridColDef[] = [
   {
@@ -264,6 +265,10 @@ interface IContractsTable {
 }
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
+  const { data } = appAPI.useGetDocumentsQuery('');
+
+  console.log(data);
+
 
   const switchColumns = (value: string) => {
     switch (value) {

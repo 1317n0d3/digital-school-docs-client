@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import './LoginForm.scss';
+import { appAPI } from "../../../services/AppService";
 
 interface ILoginForm { }
 
@@ -14,7 +15,7 @@ const validationSchema = yup.object({
     .required('Login is required'),
   password: yup
     .string()
-    .min(8, 'Password should be of minimum 8 characters length')
+    .min(4, 'Password should be of minimum 4 characters length')
     .required('Password is required'),
 });
 
@@ -22,6 +23,7 @@ const textFieldStyle = { marginBottom: '20px' };
 
 const LoginForm: FC<ILoginForm> = ({ ...props }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [createAuth] = appAPI.useUserAuthMutation();
   const formik = useFormik({
     initialValues: {
       login: '',
@@ -31,6 +33,10 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
       setIsValid(true)
+      createAuth({
+        username: formik.values.login,
+        password: formik.values.password
+      })
     },
   });
 

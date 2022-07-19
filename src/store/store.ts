@@ -1,13 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import tabReducer from './reducers/TabSlice'
+import {appAPI} from "../services/AppService";
 
 const rootReducer = combineReducers({
-  tabReducer
+  tabReducer,
+  [appAPI.reducerPath]: appAPI.reducer
 })
 
 export const setupStore = () => {
   return configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(appAPI.middleware)
   })
 }
 
