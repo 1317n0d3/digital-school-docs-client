@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { FC, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import '../ContractForm.scss';
 
@@ -61,7 +61,8 @@ const validationSchema = yup.object({
 const textFieldStyle = { margin: '10px', width: '400px' };
 
 const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const navigate = useNavigate();
+  // const [isValid, setIsValid] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       surname: '',
@@ -71,9 +72,18 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
       birthday: '',
       position: '',
       job: '',
+      surnameChild: '',
+      firstNameChild: '',
+      patronymicChild: '',
+      birthdayChild: '',
+      passportChild: '',
+      education: '',
+      phoneChild: '',
+      emailChild: '',
       passportSerial: '',
       passportNumber: '',
       passportIssue: '',
+      passportDate: '',
       snils: '',
       phone: '',
       email: '',
@@ -84,9 +94,13 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      setIsValid(true)
+      // setIsValid(true)
     },
   });
+
+  const handleClick = () => {
+    navigate('/contracts')
+  }
 
   return (
     <div className='contract-form-container'>
@@ -149,29 +163,6 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
           helperText={formik.touched.birthday && formik.errors.birthday}
           sx={textFieldStyle}
         />
-        <h3>Образование и карьера</h3>
-        <TextField
-          fullWidth
-          id="position"
-          name="position"
-          label="Должность"
-          value={formik.values.position}
-          onChange={formik.handleChange}
-          error={formik.touched.position && Boolean(formik.errors.position)}
-          helperText={formik.touched.position && formik.errors.position}
-          sx={textFieldStyle}
-        />
-        <TextField
-          fullWidth
-          id="job"
-          name="job"
-          label="Место работы"
-          value={formik.values.job}
-          onChange={formik.handleChange}
-          error={formik.touched.job && Boolean(formik.errors.job)}
-          helperText={formik.touched.job && formik.errors.job}
-          sx={textFieldStyle}
-        />
         <h3>Паспортные данные</h3>
         <TextField
           fullWidth
@@ -199,7 +190,7 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
           fullWidth
           id="passportIssue"
           name="passportIssue"
-          label="Кем и когда выдан"
+          label="Кем выдан"
           value={formik.values.passportIssue}
           onChange={formik.handleChange}
           error={formik.touched.passportIssue && Boolean(formik.errors.passportIssue)}
@@ -208,16 +199,87 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
         />
         <TextField
           fullWidth
-          id="snils"
-          name="snils"
-          label="СНИЛС"
-          value={formik.values.snils}
+          id="passportIssue"
+          name="passportIssue"
+          label="Дата выдачи"
+          value={formik.values.passportDate}
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
           onChange={formik.handleChange}
-          error={formik.touched.snils && Boolean(formik.errors.snils)}
-          helperText={formik.touched.snils && formik.errors.snils}
+          error={formik.touched.passportDate && Boolean(formik.errors.passportDate)}
+          helperText={formik.touched.passportDate && formik.errors.passportDate}
           sx={textFieldStyle}
         />
-        <h3>Контактная информация</h3>
+        <h3>Основная информация о ребенке</h3>
+        <TextField
+          fullWidth
+          id="surnameChild"
+          name="surnameChild"
+          label="Фамилия"
+          value={formik.values.surnameChild}
+          onChange={formik.handleChange}
+          error={formik.touched.surnameChild && Boolean(formik.errors.surnameChild)}
+          helperText={formik.touched.surnameChild && formik.errors.surnameChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="firstNameChild"
+          name="firstNameChild"
+          label="Имя"
+          value={formik.values.firstNameChild}
+          onChange={formik.handleChange}
+          error={formik.touched.firstNameChild && Boolean(formik.errors.firstNameChild)}
+          helperText={formik.touched.firstNameChild && formik.errors.firstNameChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="patronymicChild"
+          name="patronymicChild"
+          label="Отчество"
+          value={formik.values.patronymicChild}
+          onChange={formik.handleChange}
+          error={formik.touched.patronymicChild && Boolean(formik.errors.patronymicChild)}
+          helperText={formik.touched.patronymicChild && formik.errors.patronymicChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="birthdayChild"
+          name="birthdayChild"
+          label="Дата рождения"
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          value={formik.values.birthdayChild}
+          onChange={formik.handleChange}
+          error={formik.touched.birthdayChild && Boolean(formik.errors.birthdayChild)}
+          helperText={formik.touched.birthdayChild && formik.errors.birthdayChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="passportChild"
+          name="passportChild"
+          label="Свидетельство о рождении / паспорт"
+          value={formik.values.passportChild}
+          onChange={formik.handleChange}
+          error={formik.touched.passportChild && Boolean(formik.errors.passportChild)}
+          helperText={formik.touched.passportChild && formik.errors.passportChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="education"
+          name="education"
+          label="Место учебы"
+          value={formik.values.education}
+          onChange={formik.handleChange}
+          error={formik.touched.education && Boolean(formik.errors.education)}
+          helperText={formik.touched.education && formik.errors.education}
+          sx={textFieldStyle}
+        />
+        <h3>Контактная информация представителя</h3>
         <TextField
           fullWidth
           id="phone"
@@ -240,6 +302,31 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
+          sx={textFieldStyle}
+        />
+        <h3>Контактная информация ребенка</h3>
+        <TextField
+          fullWidth
+          id="phoneChild"
+          name="phoneChild"
+          label="Номер телефона"
+          type={'tel'}
+          value={formik.values.phoneChild}
+          onChange={formik.handleChange}
+          error={formik.touched.phoneChild && Boolean(formik.errors.phoneChild)}
+          helperText={formik.touched.phoneChild && formik.errors.phoneChild}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="emailChild"
+          name="emailChild"
+          label="Электронная почта"
+          type={'email'}
+          value={formik.values.emailChild}
+          onChange={formik.handleChange}
+          error={formik.touched.emailChild && Boolean(formik.errors.emailChild)}
+          helperText={formik.touched.emailChild && formik.errors.emailChild}
           sx={textFieldStyle}
         />
         <h3>Курсы</h3>
@@ -278,13 +365,13 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <Button color="primary" variant="contained" type="submit">
           Добавить
         </Button>
 
-        {isValid && (
-          <Navigate to={'/contracts'} replace={true} />
-        )}
+        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
+          Назад
+        </Button>
       </form>
     </div>
   );

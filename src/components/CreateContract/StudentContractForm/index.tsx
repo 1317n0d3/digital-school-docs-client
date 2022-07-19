@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { FC, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import '../ContractForm.scss';
 
@@ -61,7 +61,8 @@ const validationSchema = yup.object({
 const textFieldStyle = { margin: '10px', width: '400px' };
 
 const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const navigate = useNavigate();
+  // const [isValid, setIsValid] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       surname: '',
@@ -71,9 +72,17 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
       birthday: '',
       position: '',
       job: '',
+      surnameStudent: '',
+      firstNameStudent: '',
+      patronymicStudent: '',
+      addressStudent: '',
+      birthdayStudent: '',
+      education: '',
+      graduationDate: '',
       passportSerial: '',
       passportNumber: '',
       passportIssue: '',
+      passportDate: '',
       snils: '',
       phone: '',
       email: '',
@@ -84,14 +93,18 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      setIsValid(true)
+      // setIsValid(true)
     },
   });
+
+  const handleClick = () => {
+    navigate('/contracts')
+  }
 
   return (
     <div className='contract-form-container'>
       <form onSubmit={formik.handleSubmit} className='contract-form'>
-        <h3>Основная информация</h3>
+        <h3>Основная информация о представителе</h3>
         <TextField
           fullWidth
           id="surname"
@@ -149,29 +162,102 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
           helperText={formik.touched.birthday && formik.errors.birthday}
           sx={textFieldStyle}
         />
+        <h3>Основная информация о студенте</h3>
+        <TextField
+          fullWidth
+          id="surnameStudent"
+          name="surnameStudent"
+          label="Фамилия"
+          value={formik.values.surnameStudent}
+          onChange={formik.handleChange}
+          error={formik.touched.surnameStudent && Boolean(formik.errors.surnameStudent)}
+          helperText={formik.touched.surnameStudent && formik.errors.surnameStudent}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="firstNameStudent"
+          name="firstNameStudent"
+          label="Имя"
+          value={formik.values.firstNameStudent}
+          onChange={formik.handleChange}
+          error={formik.touched.firstNameStudent && Boolean(formik.errors.firstNameStudent)}
+          helperText={formik.touched.firstNameStudent && formik.errors.firstNameStudent}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="patronymicStudent"
+          name="patronymicStudent"
+          label="Отчество"
+          value={formik.values.patronymicStudent}
+          onChange={formik.handleChange}
+          error={formik.touched.patronymicStudent && Boolean(formik.errors.patronymicStudent)}
+          helperText={formik.touched.patronymicStudent && formik.errors.patronymicStudent}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="addressStudent"
+          name="addressStudent"
+          label="Адрес"
+          value={formik.values.addressStudent}
+          onChange={formik.handleChange}
+          error={formik.touched.addressStudent && Boolean(formik.errors.addressStudent)}
+          helperText={formik.touched.addressStudent && formik.errors.addressStudent}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="birthdayStudent"
+          name="birthdayStudent"
+          label="Дата рождения"
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          value={formik.values.birthdayStudent}
+          onChange={formik.handleChange}
+          error={formik.touched.birthdayStudent && Boolean(formik.errors.birthdayStudent)}
+          helperText={formik.touched.birthdayStudent && formik.errors.birthdayStudent}
+          sx={textFieldStyle}
+        />
         <h3>Образование и карьера</h3>
         <TextField
           fullWidth
-          id="position"
-          name="position"
-          label="Должность"
-          value={formik.values.position}
+          id="education"
+          name="education"
+          label="Место учебы"
+          value={formik.values.education}
           onChange={formik.handleChange}
-          error={formik.touched.position && Boolean(formik.errors.position)}
-          helperText={formik.touched.position && formik.errors.position}
+          error={formik.touched.education && Boolean(formik.errors.education)}
+          helperText={formik.touched.education && formik.errors.education}
           sx={textFieldStyle}
         />
         <TextField
           fullWidth
-          id="job"
-          name="job"
-          label="Место работы"
-          value={formik.values.job}
+          id="graduationDate"
+          name="graduationDate"
+          label="Дата окончания вуза"
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          value={formik.values.graduationDate}
           onChange={formik.handleChange}
-          error={formik.touched.job && Boolean(formik.errors.job)}
-          helperText={formik.touched.job && formik.errors.job}
+          error={formik.touched.graduationDate && Boolean(formik.errors.graduationDate)}
+          helperText={formik.touched.graduationDate && formik.errors.graduationDate}
           sx={textFieldStyle}
         />
+        {/* <TextField
+          fullWidth
+          id="birthday"
+          name="birthday"
+          label="Год завершения обучения в вузе"
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          value={formik.values.birthday}
+          onChange={formik.handleChange}
+          error={formik.touched.birthday && Boolean(formik.errors.birthday)}
+          helperText={formik.touched.birthday && formik.errors.birthday}
+          sx={textFieldStyle}
+        /> */}
         <h3>Паспортные данные</h3>
         <TextField
           fullWidth
@@ -199,11 +285,24 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
           fullWidth
           id="passportIssue"
           name="passportIssue"
-          label="Кем и когда выдан"
+          label="Кем выдан"
           value={formik.values.passportIssue}
           onChange={formik.handleChange}
           error={formik.touched.passportIssue && Boolean(formik.errors.passportIssue)}
           helperText={formik.touched.passportIssue && formik.errors.passportIssue}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="passportIssue"
+          name="passportIssue"
+          label="Дата выдачи"
+          value={formik.values.passportDate}
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          onChange={formik.handleChange}
+          error={formik.touched.passportDate && Boolean(formik.errors.passportDate)}
+          helperText={formik.touched.passportDate && formik.errors.passportDate}
           sx={textFieldStyle}
         />
         <TextField
@@ -278,13 +377,13 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <Button color="primary" variant="contained" type="submit">
           Добавить
         </Button>
 
-        {isValid && (
-          <Navigate to={'/contracts'} replace={true} />
-        )}
+        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
+          Назад
+        </Button>
       </form>
     </div>
   );

@@ -75,6 +75,7 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
       passportSerial: '',
       passportNumber: '',
       passportIssue: '',
+      passportDate: '',
       snils: '',
       phone: '',
       email: '',
@@ -204,11 +205,24 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
           fullWidth
           id="passportIssue"
           name="passportIssue"
-          label="Кем и когда выдан"
+          label="Кем выдан"
           value={formik.values.passportIssue}
           onChange={formik.handleChange}
           error={formik.touched.passportIssue && Boolean(formik.errors.passportIssue)}
           helperText={formik.touched.passportIssue && formik.errors.passportIssue}
+          sx={textFieldStyle}
+        />
+        <TextField
+          fullWidth
+          id="passportIssue"
+          name="passportIssue"
+          label="Дата выдачи"
+          value={formik.values.passportDate}
+          InputLabelProps={{ shrink: true, required: true }}
+          type={'date'}
+          onChange={formik.handleChange}
+          error={formik.touched.passportDate && Boolean(formik.errors.passportDate)}
+          helperText={formik.touched.passportDate && formik.errors.passportDate}
           sx={textFieldStyle}
         />
         <TextField
