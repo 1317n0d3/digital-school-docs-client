@@ -1,15 +1,17 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { FC, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import './LoginForm.scss';
 import { appAPI } from "../../../services/AppService";
+import { useAppDispatch } from '../../../hooks/redux';
+import { authSlice } from '../../../store/reducers/AuthSlice';
 
 interface ILoginForm { }
 
 const validationSchema = yup.object({
-  login: yup
+  username: yup
     .string()
     .min(4, 'Login should be of minimum 4 characters length')
     .required('Login is required'),
@@ -24,19 +26,30 @@ const textFieldStyle = { marginBottom: '20px' };
 const LoginForm: FC<ILoginForm> = ({ ...props }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [createAuth] = appAPI.useUserAuthMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { setLoginCredentials } = authSlice.actions;
   const formik = useFormik({
     initialValues: {
-      login: '',
+      username: '',
       password: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      setIsValid(true)
-      createAuth({
-        username: formik.values.login,
-        password: formik.values.password
-      })
+      // setIsValid(true)
+      // createAuth({
+      //   username: formik.values.login,
+      //   password: formik.values.password
+      // })
+
+      createAuth(values)
+        .unwrap()
+        .then((credentials) => {
+          dispatch(setLoginCredentials(credentials)); console.log(credentials);
+        })
+        .then(() => navigate('/contracts'))
+        .catch((error) => console.log(error.message))
     },
   });
 
@@ -45,13 +58,13 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
-          id="login"
-          name="login"
+          id="username"
+          name="username"
           label="Логин"
-          value={formik.values.login}
+          value={formik.values.username}
           onChange={formik.handleChange}
-          error={formik.touched.login && Boolean(formik.errors.login)}
-          helperText={formik.touched.login && formik.errors.login}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
           sx={textFieldStyle}
         />
         <TextField

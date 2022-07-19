@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import tabReducer from './reducers/TabSlice'
-import {appAPI} from "../services/AppService";
+import tabReducer from './reducers/TabSlice';
+import authReducer from './reducers/AuthSlice';
+import { appAPI } from "../services/AppService";
 
 const rootReducer = combineReducers({
   tabReducer,
+  authReducer,
   [appAPI.reducerPath]: appAPI.reducer
 })
 

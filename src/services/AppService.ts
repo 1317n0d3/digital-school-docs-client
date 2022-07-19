@@ -1,22 +1,30 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IAuthData } from "../models/IAuthData";
+import { RootState } from "../store/store";
 
 export const appAPI = createApi({
     reducerPath: 'appAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8000'
+        baseUrl: 'http://localhost:8000',
+        prepareHeaders: (headers, { getState }) => {
+            const jwtToken = (getState() as RootState).authReducer.token;
+            if (jwtToken) {
+                headers.set('Authorization', `Bearer ${jwtToken}`);
+            }
+            return headers;
+        }
     }),
     endpoints: (build) => ({
         userAuth: build.mutation({
             query: (authData: IAuthData) => ({
                 url: '/auth/sign-in',
                 method: 'POST',
-                body: authData,
+                body: authData
             })
         }),
         getDocuments: build.query({
             query: () => ({
-                url: '/documents',
+                url: '/documents/child',
             })
         }),
         createDocument: build.mutation({
