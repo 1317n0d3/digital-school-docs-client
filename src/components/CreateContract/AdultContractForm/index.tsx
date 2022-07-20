@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import '../ContractForm.scss';
+import { fieldsMap } from './const';
 
 interface IAdultContractForm { }
 
@@ -98,50 +99,24 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
     <div className='contract-form-container'>
       <form onSubmit={formik.handleSubmit} className='contract-form'>
         <h3>Основная информация</h3>
-        <TextField
-          fullWidth
-          id="surname"
-          name="surname"
-          label="Фамилия"
-          value={formik.values.surname}
-          onChange={formik.handleChange}
-          error={formik.touched.surname && Boolean(formik.errors.surname)}
-          helperText={formik.touched.surname && formik.errors.surname}
-          sx={textFieldStyle}
-        />
-        <TextField
-          fullWidth
-          id="firstName"
-          name="firstName"
-          label="Имя"
-          value={formik.values.firstName}
-          onChange={formik.handleChange}
-          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-          helperText={formik.touched.firstName && formik.errors.firstName}
-          sx={textFieldStyle}
-        />
-        <TextField
-          fullWidth
-          id="patronymic"
-          name="patronymic"
-          label="Отчество"
-          value={formik.values.patronymic}
-          onChange={formik.handleChange}
-          error={formik.touched.patronymic && Boolean(formik.errors.patronymic)}
-          helperText={formik.touched.patronymic && formik.errors.patronymic}
-          sx={textFieldStyle}
-        />
-        <TextField
-          fullWidth
-          id="address"
-          name="address"
-          label="Адрес"
-          value={formik.values.address}
-          onChange={formik.handleChange}
-          error={formik.touched.address && Boolean(formik.errors.address)}
-          helperText={formik.touched.address && formik.errors.address}
-          sx={textFieldStyle}
-        />
+        {(Object.entries(fieldsMap) as [key: keyof typeof formik.values, value: string][]).map(entry => {
+          const [key, value] = entry
+
+          return (
+            <TextField
+              fullWidth
+              id={key}
+              name={key}
+              label={value}
+              value={formik.values[key]}
+              onChange={formik.handleChange}
+              error={formik.touched[key] && Boolean(formik.errors[key])}
+              helperText={formik.touched[key] && formik.errors[key]}
+              sx={textFieldStyle}
+            />
+          )
+        })}
+
         <TextField
           fullWidth
           id="birthday"
