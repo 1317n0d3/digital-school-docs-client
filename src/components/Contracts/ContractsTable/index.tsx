@@ -250,9 +250,9 @@ interface IContractsTable {
 }
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
-  // const { data } = appAPI.useGetDocumentsQuery('');
+  const { data } = appAPI.useGetDocumentsQuery('');
   // const { data } = appAPI.useGetClientsQuery('');
-  const { data } = appAPI.useGetCoursesQuery('');
+  // const { data } = appAPI.useGetCoursesQuery('');
   const navigate = useNavigate();
 
   console.log(data);
