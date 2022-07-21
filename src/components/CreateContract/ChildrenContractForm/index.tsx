@@ -22,14 +22,26 @@ const validationSchema = yup.object({
     .string()
     .required('address is required'),
   birthday: yup
-    .string()
+    .date()
     .required('birthday is required'),
-  position: yup
+  surnameChild: yup
     .string()
-    .required('position is required'),
-  job: yup
+    .required('surnameChild is required'),
+  firstNameChild: yup
     .string()
-    .required('job is required'),
+    .required('firstNameChild is required'),
+  patronymicChild: yup
+    .string()
+    .required('patronymicChild is required'),
+  birthdayChild: yup
+    .date()
+    .required('birthdayChild is required'),
+  passportChild: yup
+    .string()
+    .required('passportChild is required'),
+  education: yup
+    .string()
+    .required('education is required'),
   passportSerial: yup
     .string()
     .required('passportSerial is required'),
@@ -39,14 +51,24 @@ const validationSchema = yup.object({
   passportIssue: yup
     .string()
     .required('passportIssue is required'),
-  snils: yup
-    .string()
-    .required('snils is required'),
+  passportDate: yup
+    .date()
+    .required('passportDate is required'),
   phone: yup
     .string()
+    .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
+    .required('phone is required'),
+  phoneChild: yup
+    .string()
+    .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
     .required('phone is required'),
   email: yup
     .string()
+    .email()
+    .required('email is required'),
+  emailChild: yup
+    .string()
+    .email()
     .required('email is required'),
   course: yup
     .string()
@@ -72,8 +94,6 @@ const ChildrenContractForm: FC<IChildrenContractForm> = (props) => {
       patronymic: '',
       address: '',
       birthday: '',
-      position: '',
-      job: '',
       surnameChild: '',
       firstNameChild: '',
       patronymicChild: '',
@@ -86,14 +106,13 @@ const ChildrenContractForm: FC<IChildrenContractForm> = (props) => {
       passportNumber: '',
       passportIssue: '',
       passportDate: '',
-      snils: '',
       phone: '',
       email: '',
       course: '',
       contractDate: '',
       contractNumber: '',
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
       // setIsValid(true)
@@ -110,8 +129,7 @@ const ChildrenContractForm: FC<IChildrenContractForm> = (props) => {
         "passport_issue_date": `${values.passportDate}`,
         "passport_issued_by": `${values.passportIssue}`,
         "address": `${values.address}`,
-        // "snils": `${values.snils}`,
-        "snils": `0`,
+        // "snils": `0124512`,
         "email": `${values.email}`,
         "phone": `${values.phone}`,
         "doctype": "child_contract",
@@ -394,13 +412,15 @@ const ChildrenContractForm: FC<IChildrenContractForm> = (props) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" type="submit">
-          Добавить
-        </Button>
+        <div className='form-buttons'>
+          <Button color="primary" variant="contained" type="submit">
+            Добавить
+          </Button>
 
-        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
-          Назад
-        </Button>
+          <Button color="primary" variant="contained" type="button" onClick={handleClick}>
+            Назад
+          </Button>
+        </div>
       </form>
     </div>
   );

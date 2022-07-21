@@ -294,8 +294,8 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
         />
         <TextField
           fullWidth
-          id="passportIssue"
-          name="passportIssue"
+          id="passportDate"
+          name="passportDate"
           label="Дата выдачи"
           value={formik.values.passportDate}
           InputLabelProps={{ shrink: true, required: true }}
@@ -377,13 +377,15 @@ const StudentContractForm: FC<IStudentContractForm> = ({ ...props }) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" type="submit">
-          Добавить
-        </Button>
+        <div className='form-buttons'>
+          <Button color="primary" variant="contained" type="submit">
+            Добавить
+          </Button>
 
-        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
-          Назад
-        </Button>
+          <Button color="primary" variant="contained" type="button" onClick={handleClick}>
+            Назад
+          </Button>
+        </div>
       </form>
     </div>
   );

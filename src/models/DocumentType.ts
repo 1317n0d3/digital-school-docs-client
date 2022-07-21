@@ -7,7 +7,7 @@ interface IDocumentParent {
   passport_issue_date: string,
   passport_issued_by: string,
   address: string,
-  snils: string,
+  snils?: string,
   email: string,
   phone: string,
   doctype: string,

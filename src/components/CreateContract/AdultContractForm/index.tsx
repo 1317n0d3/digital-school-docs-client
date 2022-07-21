@@ -19,43 +19,48 @@ const validationSchema = yup.object({
     .required('Patronymic is required'),
   address: yup
     .string()
-    .required('Patronymic is required'),
+    .required('address is required'),
   birthday: yup
-    .string()
-    .required('Patronymic is required'),
+    .date()
+    .required('birthday is required'),
   position: yup
     .string()
-    .required('Patronymic is required'),
+    .required('position is required'),
   job: yup
     .string()
-    .required('Patronymic is required'),
+    .required('job is required'),
   passportSerial: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportSerial is required'),
   passportNumber: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportNumber is required'),
   passportIssue: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportIssue is required'),
+  passportDate: yup
+    .date()
+    .required('passportDate is required'),
   snils: yup
     .string()
-    .required('Patronymic is required'),
+    .required('snils is required'),
   phone: yup
     .string()
-    .required('Patronymic is required'),
+    .matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid')
+    .required('phone is required'),
   email: yup
     .string()
-    .required('Patronymic is required'),
+    .email()
+    .required('email is required'),
   course: yup
     .string()
-    .required('Patronymic is required'),
+    .required('course is required'),
   contractDate: yup
     .string()
-    .required('Patronymic is required'),
+    .required('contractDate is required'),
   contractNumber: yup
     .string()
-    .required('Patronymic is required'),
+    .required('contractNumber is required'),
 });
 
 const textFieldStyle = { margin: '10px', width: '400px' };
@@ -214,8 +219,8 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
         />
         <TextField
           fullWidth
-          id="passportIssue"
-          name="passportIssue"
+          id="passportDate"
+          name="passportDate"
           label="Дата выдачи"
           value={formik.values.passportDate}
           InputLabelProps={{ shrink: true, required: true }}
@@ -297,14 +302,15 @@ const AdultContractForm: FC<IAdultContractForm> = ({ ...props }) => {
           helperText={formik.touched.contractNumber && formik.errors.contractNumber}
           sx={textFieldStyle}
         />
-        <Button color="primary" variant="contained" type="submit">
-          Добавить
-        </Button>
+        <div className='form-buttons'>
+          <Button color="primary" variant="contained" type="submit">
+            Добавить
+          </Button>
 
-        <Button color="primary" variant="contained" type="button" onClick={handleClick}>
-          Назад
-        </Button>
-
+          <Button color="primary" variant="contained" type="button" onClick={handleClick}>
+            Назад
+          </Button>
+        </div>
         {/* {isValid && (
           <Navigate to={'/contracts'} replace={true} />
         )} */}
