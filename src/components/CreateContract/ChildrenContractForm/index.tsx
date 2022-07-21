@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { appAPI } from '../../../services/AppService';
 import '../ContractForm.scss';
 
 interface IChildrenContractForm { }
@@ -19,49 +20,50 @@ const validationSchema = yup.object({
     .required('Patronymic is required'),
   address: yup
     .string()
-    .required('Patronymic is required'),
+    .required('address is required'),
   birthday: yup
     .string()
-    .required('Patronymic is required'),
+    .required('birthday is required'),
   position: yup
     .string()
-    .required('Patronymic is required'),
+    .required('position is required'),
   job: yup
     .string()
-    .required('Patronymic is required'),
+    .required('job is required'),
   passportSerial: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportSerial is required'),
   passportNumber: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportNumber is required'),
   passportIssue: yup
     .string()
-    .required('Patronymic is required'),
+    .required('passportIssue is required'),
   snils: yup
     .string()
-    .required('Patronymic is required'),
+    .required('snils is required'),
   phone: yup
     .string()
-    .required('Patronymic is required'),
+    .required('phone is required'),
   email: yup
     .string()
-    .required('Patronymic is required'),
+    .required('email is required'),
   course: yup
     .string()
-    .required('Patronymic is required'),
+    .required('course is required'),
   contractDate: yup
     .string()
-    .required('Patronymic is required'),
+    .required('contractDate is required'),
   contractNumber: yup
     .string()
-    .required('Patronymic is required'),
+    .required('contractNumber is required'),
 });
 
 const textFieldStyle = { margin: '10px', width: '400px' };
 
-const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
+const ChildrenContractForm: FC<IChildrenContractForm> = (props) => {
   const navigate = useNavigate();
+  const [createDocument] = appAPI.useCreateDocumentMutation();
   // const [isValid, setIsValid] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
@@ -91,10 +93,37 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
       contractDate: '',
       contractNumber: '',
     },
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
       // setIsValid(true)
+      console.log(values);
+
+      const body =
+      {
+        "name": `${values.surname} ${values.firstName} ${values.patronymic}`,
+        "childName": `${values.surnameChild} ${values.firstNameChild} ${values.patronymicChild}`,
+        "education": `${values.education}`,
+        "birthday": `${values.birthday}`,
+        "passport_serial": `${values.passportSerial}`,
+        "passport_number": `${values.passportNumber}`,
+        "passport_issue_date": `${values.passportDate}`,
+        "passport_issued_by": `${values.passportIssue}`,
+        "address": `${values.address}`,
+        // "snils": `${values.snils}`,
+        "snils": `0`,
+        "email": `${values.email}`,
+        "phone": `${values.phone}`,
+        "doctype": "child_contract",
+        "course": `${values.course}`,
+        "date": `${values.contractDate}`,
+        "contractNumber": `${values.contractNumber}`
+      };
+      console.log(body);
+
+      createDocument(body)
+        .then(() => navigate('/contracts'))
+        .catch(err => console.log(err))
     },
   });
 
@@ -199,8 +228,8 @@ const ChildrenContractForm: FC<IChildrenContractForm> = ({ ...props }) => {
         />
         <TextField
           fullWidth
-          id="passportIssue"
-          name="passportIssue"
+          id="passportDate"
+          name="passportDate"
           label="Дата выдачи"
           value={formik.values.passportDate}
           InputLabelProps={{ shrink: true, required: true }}

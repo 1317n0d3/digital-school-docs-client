@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { FC, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import './LoginForm.scss';
 import { appAPI } from "../../../services/AppService";
@@ -24,7 +24,6 @@ const validationSchema = yup.object({
 const textFieldStyle = { marginBottom: '20px' };
 
 const LoginForm: FC<ILoginForm> = ({ ...props }) => {
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [createAuth] = appAPI.useUserAuthMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -36,18 +35,9 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      // setIsValid(true)
-      // createAuth({
-      //   username: formik.values.login,
-      //   password: formik.values.password
-      // })
-
       createAuth(values)
         .unwrap()
-        .then((credentials) => {
-          dispatch(setLoginCredentials(credentials)); console.log(credentials);
-        })
+        .then((credentials) => dispatch(setLoginCredentials(credentials)))
         .then(() => navigate('/contracts'))
         .catch((error) => console.log(error.message))
     },
@@ -82,10 +72,6 @@ const LoginForm: FC<ILoginForm> = ({ ...props }) => {
         <Button color="primary" variant="contained" fullWidth type="submit">
           Продолжить
         </Button>
-
-        {isValid && (
-          <Navigate to={'/contracts'} replace={true} />
-        )}
       </form>
     </div>
   );

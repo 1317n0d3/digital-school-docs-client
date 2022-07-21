@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IAuthData } from "../models/IAuthData";
+import { DocumentType } from "../models/DocumentType";
 import { RootState } from "../store/store";
 
 export const appAPI = createApi({
@@ -28,7 +29,7 @@ export const appAPI = createApi({
             })
         }),
         createDocument: build.mutation({
-            query: (document) => ({
+            query: (document: DocumentType) => ({
                 url: '/documents/create',
                 method: 'POST',
                 body: document,

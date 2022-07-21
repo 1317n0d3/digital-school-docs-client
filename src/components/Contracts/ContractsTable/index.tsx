@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 // import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import contractTypes from '../../../constants/contractTypes';
@@ -233,29 +233,53 @@ const childColumns: GridColDef[] = [
   // },
 ];
 
-const rows = [
-  { id: 1, fullName: 'Snow Jon', age: 35 },
-  { id: 2, fullName: 'Lannister Cersei', age: 42 },
-  { id: 3, fullName: 'Lannister Jaime', age: 45 },
-  { id: 4, fullName: 'Stark Arya', age: 16 },
-  { id: 5, fullName: 'Targaryen Daenerys', age: null },
-  { id: 6, fullName: 'Melisandre', age: 150 },
-  { id: 7, fullName: 'Clifford Ferrara', age: 44 },
-  { id: 8, fullName: 'Frances Rossini', age: 36 },
-  { id: 9, fullName: 'Roxie Harvey', age: 65 },
-];
+// const rows = [
+//   { id: 1, fullName: 'Snow Jon', age: 35 },
+//   { id: 2, fullName: 'Lannister Cersei', age: 42 },
+//   { id: 3, fullName: 'Lannister Jaime', age: 45 },
+//   { id: 4, fullName: 'Stark Arya', age: 16 },
+//   { id: 5, fullName: 'Targaryen Daenerys', age: null },
+//   { id: 6, fullName: 'Melisandre', age: 150 },
+//   { id: 7, fullName: 'Clifford Ferrara', age: 44 },
+//   { id: 8, fullName: 'Frances Rossini', age: 36 },
+//   { id: 9, fullName: 'Roxie Harvey', age: 65 },
+// ];
 
 interface IContractsTable {
   contractType: string,
 }
 
 const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
-  const { data } = appAPI.useGetDocumentsQuery('');
+  const [rowsData, setRowsData] = useState(
+    [{
+      "id": '0',
+      "name": '',
+      "childName": '',
+      "education": '',
+      "birthday": '',
+      "passport_serial": '',
+      "passport_number": '',
+      "passport_issue_date": '',
+      "passport_issued_by": '',
+      "address": '',
+      "snils": '',
+      "email": '',
+      "phone": '',
+      "doctype": '',
+      "course": '',
+      "date": '',
+      "contractNumber": '',
+    }]
+  );
+  const { data, isLoading } = appAPI.useGetDocumentsQuery('');
   // const { data } = appAPI.useGetClientsQuery('');
   // const { data } = appAPI.useGetCoursesQuery('');
   const navigate = useNavigate();
 
-  console.log(data);
+  useEffect(() => {
+    if (!isLoading) console.log(data.data.data);
+    // setRowsData(data.data.data);
+  }, [isLoading])
 
 
   const switchColumns = (value: string) => {
@@ -280,7 +304,7 @@ const ContractsTable: FC<IContractsTable> = ({ contractType, ...props }) => {
   return (
     <div style={{ width: '100%', height: '70vh' }}>
       <DataGrid
-        rows={rows}
+        rows={rowsData}
         columns={switchColumns(contractType)}
         pageSize={10}
         rowsPerPageOptions={[10]}
